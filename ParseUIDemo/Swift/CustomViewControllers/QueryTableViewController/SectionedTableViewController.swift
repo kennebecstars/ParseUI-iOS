@@ -26,8 +26,8 @@ import ParseUI
 
 class SectionedTableViewController: PFQueryTableViewController {
 
-    var sections: [Int: [PFObject]] = Dictionary()
-    var sectionKeys: [Int] = Array()
+    @objc var sections: [Int: [PFObject]] = Dictionary()
+    @objc var sectionKeys: [Int] = Array()
 
     // MARK: Init
 
@@ -40,7 +40,7 @@ class SectionedTableViewController: PFQueryTableViewController {
 
     // MARK: Data
 
-    func objectsDidLoad(error: NSError?) {
+    @objc func objectsDidLoad(error: NSError?) {
         super.objectsDidLoad(error)
 
         sections.removeAll(keepingCapacity: false)
@@ -57,7 +57,7 @@ class SectionedTableViewController: PFQueryTableViewController {
         tableView.reloadData()
     }
 
-    func objectAtIndexPath(indexPath: NSIndexPath?) -> PFObject? {
+    @objc func objectAtIndexPath(indexPath: NSIndexPath?) -> PFObject? {
         if let indexPath = indexPath {
             let array = sections[sectionKeys[indexPath.section]]
             return array?[indexPath.row]
@@ -68,7 +68,7 @@ class SectionedTableViewController: PFQueryTableViewController {
 
 extension SectionedTableViewController {
 
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    @objc func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return sections.count
     }
 

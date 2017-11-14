@@ -30,7 +30,7 @@ class DeletionCollectionViewController: PFQueryCollectionViewController, UIAlert
 
         navigationItem.rightBarButtonItems = [
             editButtonItem,
-            UIBarButtonItem(barButtonSystemItem: .add, target: self, action: "addTodo")
+            UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(DeletionCollectionViewController.addTodo))
         ]
     }
 
@@ -39,6 +39,7 @@ class DeletionCollectionViewController: PFQueryCollectionViewController, UIAlert
 
         if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
             let bounds = UIEdgeInsetsInsetRect(view.bounds, layout.sectionInset)
+            //let sideLength = min(CGRectGetWidth(bounds), CGRectGetHeight(bounds)) / 2.0 - layout.minimumInteritemSpacing
             let sideLength = min(bounds.size.width, bounds.size.height) / 2.0 - layout.minimumInteritemSpacing
             layout.itemSize = CGSize(sideLength, sideLength)
         }
@@ -51,7 +52,7 @@ class DeletionCollectionViewController: PFQueryCollectionViewController, UIAlert
             navigationItem.leftBarButtonItem = UIBarButtonItem(
                 barButtonSystemItem: .trash,
                 target: self,
-                action: "deleteSelectedItems"
+                action: #selector(DeletionCollectionViewController.deleteSelectedItems)
             )
         } else {
             navigationItem.leftBarButtonItem = navigationItem.backBarButtonItem
@@ -97,6 +98,7 @@ class DeletionCollectionViewController: PFQueryCollectionViewController, UIAlert
 
     @objc
     func deleteSelectedItems() {
+        //removeObjectsAtIndexPaths(collectionView?.indexPathsForSelectedItems())
         removeObjects(at: collectionView?.indexPathsForSelectedItems)
     }
 
@@ -127,6 +129,9 @@ class DeletionCollectionViewController: PFQueryCollectionViewController, UIAlert
                 dictionary: [ "title": title ]
             )
             
+            /*object.saveEventually().continueWithSuccessBlock { _ -> AnyObject! in
+                return self.loadObjects()
+            }*/
             object.saveEventually().continue(successBlock: { _ -> AnyObject! in
                 return self.loadObjects()
             })

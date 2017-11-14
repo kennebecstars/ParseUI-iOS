@@ -25,7 +25,7 @@ import Parse
 import ParseUI
 
 class SimpleCollectionReusableView : UICollectionReusableView {
-    let label: UILabel = UILabel(frame: CGRect.zero)
+    @objc let label: UILabel = UILabel(frame: CGRect.zero)
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -50,8 +50,8 @@ class SimpleCollectionReusableView : UICollectionReusableView {
 
 class SectionedCollectionViewController: PFQueryCollectionViewController {
 
-    var sections: [Int: [PFObject]] = Dictionary()
-    var sectionKeys: [Int] = Array()
+    @objc var sections: [Int: [PFObject]] = Dictionary()
+    @objc var sectionKeys: [Int] = Array()
 
     // MARK: Init
 
@@ -78,6 +78,7 @@ class SectionedCollectionViewController: PFQueryCollectionViewController {
 
         if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
             let bounds = UIEdgeInsetsInsetRect(view.bounds, layout.sectionInset)
+            //let sideLength = min(CGRectGetWidth(bounds), CGRectGetHeight(bounds)) / 2.0 - layout.minimumInteritemSpacing
             let sideLength = min(bounds.size.width, bounds.size.height) / 2.0 - layout.minimumInteritemSpacing
             layout.itemSize = CGSize(sideLength, sideLength)
         }
@@ -85,10 +86,11 @@ class SectionedCollectionViewController: PFQueryCollectionViewController {
 
     // MARK: Data
 
-    func objectsDidLoad(error: NSError?) {
+    @objc func objectsDidLoad(error: NSError?) {
         super.objectsDidLoad(error)
 
         sections.removeAll(keepingCapacity: false)
+        //if let objects = objects {
         if objects.count > 0 {
             for object in objects {
                 let priority = (object["priority"] as? Int) ?? 0
@@ -102,7 +104,7 @@ class SectionedCollectionViewController: PFQueryCollectionViewController {
         collectionView?.reloadData()
     }
 
-    func objectAtIndexPath(indexPath: NSIndexPath?) -> PFObject? {
+    @objc func objectAtIndexPath(indexPath: NSIndexPath?) -> PFObject? {
         if let indexPath = indexPath {
             let array = sections[sectionKeys[indexPath.section]]
             return array?[indexPath.row]
@@ -147,8 +149,31 @@ extension SectionedCollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         if sections.count > 0 {
+            //return CGSize(CGRectGetWidth(collectionView.bounds), 40.0)
             return CGSize(collectionView.bounds.size.width, 40.0)
         }
         return CGSize.zero
     }
 }
+/*
+extension CGRect {
+    init(_ x:CGFloat, _ y:CGFloat, _ w:CGFloat, _ h:CGFloat) {
+        self.init(x:x, y:y, width:w, height:h)
+    }
+}
+extension CGSize {
+    init(_ width:CGFloat, _ height:CGFloat) {
+        self.init(width:width, height:height)
+    }
+}
+extension CGPoint {
+    init(_ x:CGFloat, _ y:CGFloat) {
+        self.init(x:x, y:y)
+    }
+}
+extension CGVector {
+    init (_ dx:CGFloat, _ dy:CGFloat) {
+        self.init(dx:dx, dy:dy)
+    }
+}
+*/
