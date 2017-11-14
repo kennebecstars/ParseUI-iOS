@@ -67,7 +67,7 @@ class PaginatedCollectionViewController: PFQueryCollectionViewController {
         if let title = object?["title"] as? String {
             let attributedTitle = NSMutableAttributedString(string: title)
             if let priority = object?["priority"] as? Int {
-                let attributes = [NSFontAttributeName : UIFont.systemFont(ofSize: 13.0), NSForegroundColorAttributeName : UIColor.gray]
+                let attributes = [NSAttributedStringKey.font : UIFont.systemFont(ofSize: 13.0), NSAttributedStringKey.foregroundColor : UIColor.gray]
                 let string = NSAttributedString(string: "\nPriority: \(priority)", attributes: attributes)
                 attributedTitle.append(string)
             }

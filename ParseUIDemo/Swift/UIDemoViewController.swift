@@ -294,7 +294,7 @@ extension UIDemoViewController {
 
 extension UIDemoViewController : PFLogInViewControllerDelegate {
     
-    func logInViewController(logInController: PFLogInViewController, didLogInUser user: PFUser) {
+    @objc func logInViewController(logInController: PFLogInViewController, didLogInUser user: PFUser) {
         dismiss(animated: true, completion: nil)
     }
     
@@ -302,7 +302,7 @@ extension UIDemoViewController : PFLogInViewControllerDelegate {
 
 extension UIDemoViewController : PFSignUpViewControllerDelegate {
     
-    func signUpViewController(signUpController: PFSignUpViewController, didSignUpUser user: PFUser) {
+    @objc func signUpViewController(signUpController: PFSignUpViewController, didSignUpUser user: PFUser) {
         dismiss(animated: true, completion: nil)
     }
     

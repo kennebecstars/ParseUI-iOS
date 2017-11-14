@@ -31,7 +31,7 @@ class DeletionTableViewController: PFQueryTableViewController, UIAlertViewDelega
 
         navigationItem.rightBarButtonItems = [
             editButtonItem,
-            UIBarButtonItem(barButtonSystemItem: .add, target: self, action: "addTodo")
+            UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(DeletionTableViewController.addTodo))
         ]
     }
 
@@ -42,7 +42,7 @@ class DeletionTableViewController: PFQueryTableViewController, UIAlertViewDelega
             navigationItem.leftBarButtonItem = UIBarButtonItem(
                 barButtonSystemItem: .trash,
                 target: self,
-                action: "deleteSelectedItems"
+                action: #selector(DeletionTableViewController.deleteSelectedItems)
             )
         } else {
             navigationItem.leftBarButtonItem = navigationItem.backBarButtonItem

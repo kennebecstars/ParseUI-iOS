@@ -46,6 +46,7 @@ class SimpleCollectionViewController: PFQueryCollectionViewController {
 
         if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
             let bounds = UIEdgeInsetsInsetRect(view.bounds, layout.sectionInset)
+            //let sideLength = min(CGRectGetWidth(bounds), CGRectGetHeight(bounds)) / 2.0 - layout.minimumInteritemSpacing
             let sideLength = min(bounds.size.width, bounds.size.height) / 2.0 - layout.minimumInteritemSpacing
             layout.itemSize = CGSize(sideLength, sideLength)
         }
@@ -66,7 +67,7 @@ class SimpleCollectionViewController: PFQueryCollectionViewController {
         if let title = object?["title"] as? String {
             let attributedTitle = NSMutableAttributedString(string: title)
             if let priority = object?["priority"] as? Int {
-                let attributes = [NSFontAttributeName : UIFont.systemFont(ofSize: 13.0), NSForegroundColorAttributeName : UIColor.gray]
+                let attributes = [NSAttributedStringKey.font : UIFont.systemFont(ofSize: 13.0), NSAttributedStringKey.foregroundColor : UIColor.gray]
                 let string = NSAttributedString(string: "\nPriority: \(priority)", attributes: attributes)
                 attributedTitle.append(string)
             }
